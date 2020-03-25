@@ -7,11 +7,15 @@ from twilio.twiml.messaging_response import MessagingResponse
 @csrf_exempt
 def sms_response(request):
     # Start our TwiML response
-    msg = request.POST['Body']
+    if request.method == 'POST':
 
-    resp = MessagingResponse()
+        msg = request.POST['Body']
 
-    # Add a text message
-    resp.message(msg)
+        resp = MessagingResponse()
 
-    return HttpResponse(str(resp))
+        # Add a text message
+        resp.message(msg)
+
+        return HttpResponse(str(resp))
+    else:
+        pass
